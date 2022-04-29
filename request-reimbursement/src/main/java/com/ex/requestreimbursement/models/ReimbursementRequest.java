@@ -15,25 +15,19 @@ import javax.persistence.*;
 public class ReimbursementRequest {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", columnDefinition = "AUTO_INCREMENT")
     private int id;
 
-    @Column(columnDefinition = "varchar(45)")
     private String item;
 
-    @Column(columnDefinition = "float")
     private float amount;
 
-    @Column(columnDefinition = "varchar(45)")
     private String date;
 
-    @Column(columnDefinition = "varchar(45) default managerReview")
     private String status;
 
-    @Column(columnDefinition = "integer")
     private int employee_id;
 
-    @Column(columnDefinition = "integer")
     private int manager_id;
-
 }
