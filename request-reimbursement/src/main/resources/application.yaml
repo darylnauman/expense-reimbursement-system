@@ -10,10 +10,12 @@ spring:
   datasource:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
-    url: jdbc:mysql://127.0.0.1:3306/projectone_db
+    url: ${DB_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
-
