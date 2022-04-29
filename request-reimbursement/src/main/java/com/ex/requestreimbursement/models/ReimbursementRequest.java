@@ -20,14 +20,9 @@ public class ReimbursementRequest {
     private int id;
 
     private String item;
-
     private float amount;
-
     private String date;
-
     private String status;
-
     private int employee_id;
-
     private int manager_id;
 }
