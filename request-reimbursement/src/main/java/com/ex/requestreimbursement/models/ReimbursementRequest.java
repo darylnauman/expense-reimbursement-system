@@ -16,7 +16,7 @@ public class ReimbursementRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", columnDefinition = "AUTO_INCREMENT")
+    // @Column(name="id", columnDefinition = "AUTO_INCREMENT")
     private int id;
 
     private String item;
