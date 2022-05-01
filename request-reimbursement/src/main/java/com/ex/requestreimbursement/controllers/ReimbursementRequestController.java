@@ -59,12 +59,11 @@ public class ReimbursementRequestController {
         }
     }
 
-    // FIXME
     @PutMapping("{id}/{revisedManagerId}")
     public ResponseEntity reassignReimbursementRequest(@PathVariable Integer id, @PathVariable Integer revisedManagerId) {
         try {
             reimbursementRequestService.reassignReimbursementRequest(id, revisedManagerId);
-            return ResponseEntity.ok().body("Success - reassigned to" + revisedManagerId);
+            return ResponseEntity.ok().body("Success - reassigned to " + revisedManagerId);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Reassign reimbursement request failed");

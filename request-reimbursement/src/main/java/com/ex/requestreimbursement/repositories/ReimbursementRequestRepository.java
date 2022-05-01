@@ -8,11 +8,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+
 @Qualifier("reimbursementrequests")
 @Repository
 public interface ReimbursementRequestRepository extends JpaRepository<ReimbursementRequest, Integer> {
 
+    @Transactional
     @Modifying
-    @Query("update ReimbursementRequest r set r.manager_id = :manager_id where r.id = :id")
-    void updateManager(@Param(value = "id") Integer id, @Param(value = "manager_id") Integer manager_id);
+    @Query(value = "update reimbursementrequest set manager_id = ?2 where id = ?1", nativeQuery = true)
+    void updateManager(Integer id, Integer manager_id);
+//    void updateManager(@Param(value = "id") Integer id, @Param(value = "manager_id") Integer manager_id);
 }
