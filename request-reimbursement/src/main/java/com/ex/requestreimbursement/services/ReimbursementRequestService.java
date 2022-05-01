@@ -50,4 +50,8 @@ public class ReimbursementRequestService {
     public List<ReimbursementRequest> findAllReimbursementRequestsByManagerId(Integer managerId) {
         return reimbursementRequests.findAllByManagerId(managerId);
     }
+
+    public List<ReimbursementRequest> findAllReimbursementRequestsByEmployeeId(Integer employeeId) {
+        return reimbursementRequests.findAllByEmployeeId(employeeId);
+    }
 }

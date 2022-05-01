@@ -27,5 +27,8 @@ public interface ReimbursementRequestRepository extends JpaRepository<Reimbursem
     void updateStatus(Integer id, String status);
 
     List<ReimbursementRequest> findAllByManagerId(Integer managerId);
+
+    List<ReimbursementRequest> findAllByEmployeeId(Integer employeeId);
+
 //    void updateManager(@Param(value = "id") Integer id, @Param(value = "manager_id") Integer manager_id);
 }
