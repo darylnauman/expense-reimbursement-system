@@ -1,64 +1,86 @@
 package com.ex.requestreimbursement.controllers;
 
 import com.ex.requestreimbursement.models.ReimbursementRequest;
-import com.ex.requestreimbursement.repositories.ReimbursementRequestRepository;
+import com.ex.requestreimbursement.services.ReimbursementRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/reimbursementrequsts")
 public class ReimbursementRequestController {
 
     @Autowired
-    ReimbursementRequestRepository reimbursementRequests;
+    ReimbursementRequestService reimbursementRequestService;
 
-    @PostMapping("/reimbursementrequsts")
+    @PostMapping
     public ResponseEntity createReimbursementRequest(@RequestBody ReimbursementRequest newReimbursementRequest) {
         try {
-            reimbursementRequests.save(newReimbursementRequest);
-            return ResponseEntity.ok("Reimbursement request submitted for review.");
+            boolean success = reimbursementRequestService.saveReimbursementRequest(newReimbursementRequest);
+
+            if (success) {
+                return ResponseEntity.ok("Reimbursement request created");
+            } else {
+                return ResponseEntity.internalServerError().body("Error saving reimbursement request");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body("Error saving new reimbursement request");
         }
     }
 
-    @GetMapping("/reimbursementrequsts")
+    @GetMapping
     public ResponseEntity getAllReimbursementRequests() {
-        return ResponseEntity.ok(reimbursementRequests.findAll());
-    }
-
-    @GetMapping("/reimbursementrequsts/{id}")
-    public ResponseEntity getReimbursementRequestById(@PathVariable Integer id) {
-        Optional<ReimbursementRequest> reimbursementRequest = reimbursementRequests.findById(id);
-
-        if(reimbursementRequest.isPresent()) {
-            return ResponseEntity.ok(reimbursementRequest);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @PutMapping("/reimbursementrequsts/{id}")
-    public ResponseEntity updateReimbursementRequest(@PathVariable Integer id) {
         try {
-            // TODO Add the correct logic to update a reimbursement request
-            System.out.println("Reached PUT api/reimbursementrequests/" + id + " end point");
-            return ResponseEntity.ok().body("Reached PUT api/reimbursementrequests/" + id + " end point");
+            List<ReimbursementRequest> reimbursementRequests = reimbursementRequestService.findAllReimbursementRequests();
+            return ResponseEntity.ok(reimbursementRequests);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("update reimbursement failed");
+            return ResponseEntity.internalServerError().body("Error getting all reimbursement requests");
         }
     }
 
-    @DeleteMapping("/reimbursementrequsts/{id}")
+    @GetMapping("{id}")
+    public ResponseEntity getReimbursementRequestById(@PathVariable Integer id) {
+        try {
+            Optional<ReimbursementRequest> reimbursementRequest = reimbursementRequestService.findById(id);
+
+            if(reimbursementRequest.isPresent()) {
+                return ResponseEntity.ok(reimbursementRequest);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // FIXME
+    @PutMapping("{id}/{revisedManagerId}")
+    public ResponseEntity reassignReimbursementRequest(@PathVariable Integer id, @PathVariable Integer revisedManagerId) {
+        try {
+            reimbursementRequestService.reassignReimbursementRequest(id, revisedManagerId);
+            return ResponseEntity.ok().body("Success - reassigned to" + revisedManagerId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Reassign reimbursement request failed");
+        }
+    }
+
+    @DeleteMapping("{id}")
     public ResponseEntity deleteReimbursementRequest(@PathVariable Integer id) {
         try {
-            // TODO Create delete request logic
-            System.out.println("Reached DELETE api/reimbursementrequests/" + id + " end point");
-            return ResponseEntity.ok().body("Reached DELETE api/reimbursementrequests/" + id + " end point");
+            boolean success = reimbursementRequestService.deleteReimbursementRequest(id);
+
+            if (success) {
+                return ResponseEntity.ok("Reimbursement request deleted");
+            } else {
+                return ResponseEntity.internalServerError().body("Error deleting reimbursement request");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body("Error deleting reimbursement request");

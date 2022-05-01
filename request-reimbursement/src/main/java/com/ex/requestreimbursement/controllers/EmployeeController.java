@@ -1,8 +1,7 @@
 package com.ex.requestreimbursement.controllers;
 
-import com.ex.requestreimbursement.EmployeeService;
+import com.ex.requestreimbursement.services.EmployeeService;
 import com.ex.requestreimbursement.models.Employee;
-import com.ex.requestreimbursement.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,14 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/employees")
 public class EmployeeController {
 
     @Autowired
     EmployeeService employeeService;
 
-
-    @PostMapping("/employees")
+    @PostMapping
     public ResponseEntity createEmployee(@RequestBody Employee newEmployee) {
         try {
           boolean success = employeeService.saveEmployee(newEmployee);
@@ -28,14 +26,13 @@ public class EmployeeController {
           } else {
               return ResponseEntity.internalServerError().body("Error saving new employee");
           }
-
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body("Error saving new employee");
         }
     }
 
-    @GetMapping("/employees")
+    @GetMapping
     public ResponseEntity getAllEmployees() {
         try {
             List<Employee> employees = employeeService.findAllEmployees();
@@ -44,10 +41,9 @@ public class EmployeeController {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body("Error getting all employees");
         }
-
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("{id}")
     public ResponseEntity getEmployeeById(@PathVariable Integer id) {
         try {
             Optional<Employee> employee = employeeService.findById(id);
