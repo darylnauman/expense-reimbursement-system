@@ -1,5 +1,6 @@
 package com.ex.requestreimbursement.services;
 
+import com.ex.requestreimbursement.models.Action;
 import com.ex.requestreimbursement.models.ReimbursementRequest;
 import com.ex.requestreimbursement.repositories.ReimbursementRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,11 @@ public class ReimbursementRequestService {
 
     public boolean deleteReimbursementRequest(Integer id) {
         reimbursementRequests.deleteById(id);
+        return true;
+    }
+
+    public boolean updateStatus(Integer id, Action action) {
+        reimbursementRequests.updateStatus(id, action.getType());
         return true;
     }
 }

@@ -1,5 +1,6 @@
 package com.ex.requestreimbursement.controllers;
 
+import com.ex.requestreimbursement.models.Action;
 import com.ex.requestreimbursement.models.ReimbursementRequest;
 import com.ex.requestreimbursement.services.ReimbursementRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,17 @@ public class ReimbursementRequestController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Reassign reimbursement request failed");
+        }
+    }
+
+    @PutMapping("{id}/action")
+    public ResponseEntity updateStatusReimbursementRequest(@PathVariable Integer id, @RequestBody Action action) {
+        try {
+            reimbursementRequestService.updateStatus(id, action);
+            return ResponseEntity.ok().body("Success - updated status to " + action.getType());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Update reimbursement request status failed");
         }
     }
 
