@@ -23,6 +23,10 @@ public class ReimbursementRequest {
     private float amount;
     private String date;
     private String status;
-    private int employee_id;
-    private int manager_id;
+
+    @Column(name = "employee_id")
+    private int employeeId;
+
+    @Column(name = "manager_id")
+    private int managerId;
 }

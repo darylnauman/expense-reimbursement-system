@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Qualifier("reimbursementrequests")
 @Repository
@@ -24,5 +25,7 @@ public interface ReimbursementRequestRepository extends JpaRepository<Reimbursem
     @Modifying
     @Query(value = "update reimbursementrequest set status = ?2 where id = ?1", nativeQuery = true)
     void updateStatus(Integer id, String status);
+
+    List<ReimbursementRequest> findAllByManagerId(Integer managerId);
 //    void updateManager(@Param(value = "id") Integer id, @Param(value = "manager_id") Integer manager_id);
 }

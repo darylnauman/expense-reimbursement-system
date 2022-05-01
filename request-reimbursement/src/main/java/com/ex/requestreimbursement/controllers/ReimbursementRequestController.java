@@ -44,6 +44,17 @@ public class ReimbursementRequestController {
         }
     }
 
+    @GetMapping("/manager/{managerId}")
+    public ResponseEntity getAllReimbursementRequestsByManagerId(@PathVariable Integer managerId) {
+        try {
+            List<ReimbursementRequest> reimbursementRequests = reimbursementRequestService.findAllReimbursementRequestsByManagerId(managerId);
+            return ResponseEntity.ok(reimbursementRequests);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error getting all reimbursement requests by managerId");
+        }
+    }
+
     @GetMapping("{id}")
     public ResponseEntity getReimbursementRequestById(@PathVariable Integer id) {
         try {

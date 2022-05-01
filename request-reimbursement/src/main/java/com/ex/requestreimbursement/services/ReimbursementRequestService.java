@@ -46,4 +46,8 @@ public class ReimbursementRequestService {
         reimbursementRequests.updateStatus(id, action.getType());
         return true;
     }
+
+    public List<ReimbursementRequest> findAllReimbursementRequestsByManagerId(Integer managerId) {
+        return reimbursementRequests.findAllByManagerId(managerId);
+    }
 }
