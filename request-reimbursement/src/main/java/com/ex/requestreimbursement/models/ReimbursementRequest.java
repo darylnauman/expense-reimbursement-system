@@ -29,4 +29,11 @@ public class ReimbursementRequest {
 
     @Column(name = "manager_id")
     private int managerId;
+
+    public ReimbursementRequest(String item, float amount, int employeeId, int managerId) {
+        this.item = item;
+        this.amount = amount;
+        this.employeeId = employeeId;
+        this.managerId = managerId;
+    }
 }
