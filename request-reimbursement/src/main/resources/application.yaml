@@ -1,6 +1,5 @@
 server:
   port: 7000
-
 management:
   endpoints:
     web:
@@ -8,11 +7,10 @@ management:
         include: "*"
 spring:
   datasource:
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    url: ${DB_URL}
-    # driverClassName: com.mysql.cj.jdbc.Driver
-
+    username: root
+    password: p4ssw0rd
+    url: jdbc:mysql://34.135.95.88:3306/my-docker-database
+    driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
