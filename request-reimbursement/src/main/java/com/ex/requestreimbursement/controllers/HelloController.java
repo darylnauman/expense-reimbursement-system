@@ -12,7 +12,7 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String greetings() {
-        logger.info("Reached /hello endpoint, running greeting method");
+        logger.info("Reached /hello endpoint - running greeting method");
         return "Good day! Test controller.";
     }
 }
