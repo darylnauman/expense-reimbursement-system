@@ -1,0 +1,19 @@
+server:
+  port: 7500
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  datasource:
+    username: root
+    password: p4ssw0rd
+    url: jdbc:mysql://34.135.95.88:3306/my-docker-database
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
