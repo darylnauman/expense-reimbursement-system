@@ -46,6 +46,16 @@ public class ReimbursementRequest {
         this.managerId = managerId;
     }
 
+    public ReimbursementRequest(String item, float amount, int employeeId, int managerId) {
+//        this.id = id;
+        this.item = item;
+        this.amount = amount;
+        this.date = "";
+        this.status = "";
+        this.employeeId = employeeId;
+        this.managerId = managerId;
+    }
+
     public int getId() {
         return id;
     }

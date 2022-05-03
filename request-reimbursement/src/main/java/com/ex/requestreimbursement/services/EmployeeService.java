@@ -1,6 +1,9 @@
 package com.ex.requestreimbursement.services;
 
+import com.ex.requestreimbursement.exceptions.EmployeeNotFoundException;
+import com.ex.requestreimbursement.exceptions.RRNotFoundException;
 import com.ex.requestreimbursement.models.Employee;
+import com.ex.requestreimbursement.models.ReimbursementRequest;
 import com.ex.requestreimbursement.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +26,13 @@ public class EmployeeService {
         return employees.findAll();
     }
 
-    public Optional<Employee> findById(Integer id) {
-        return employees.findById(id);
+    public Optional<Employee> findById(Integer id) throws EmployeeNotFoundException {
+        Optional<Employee> employee = employees.findById(id);
+
+        if (employee.isPresent()) {
+            return employee;
+        } else {
+            throw new EmployeeNotFoundException("Employee not found");
+        }
     }
 }

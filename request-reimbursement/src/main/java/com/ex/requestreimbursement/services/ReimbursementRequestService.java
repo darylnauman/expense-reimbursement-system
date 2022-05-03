@@ -1,5 +1,6 @@
 package com.ex.requestreimbursement.services;
 
+import com.ex.requestreimbursement.exceptions.RRNotFoundException;
 import com.ex.requestreimbursement.models.Action;
 import com.ex.requestreimbursement.models.ReimbursementRequest;
 import com.ex.requestreimbursement.repositories.ReimbursementRequestRepository;
@@ -11,7 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ReimbursementRequestService {
+public class
+ReimbursementRequestService {
 
     @Autowired
     private ReimbursementRequestRepository reimbursementRequests;
@@ -28,8 +30,14 @@ public class ReimbursementRequestService {
         return reimbursementRequests.findAll();
     }
 
-    public Optional<ReimbursementRequest> findById(Integer id) {
-        return reimbursementRequests.findById(id);
+    public Optional<ReimbursementRequest> findById(Integer id) throws RRNotFoundException {
+        Optional<ReimbursementRequest> reimbursementRequest = reimbursementRequests.findById(id);
+
+        if (reimbursementRequest.isPresent()) {
+            return reimbursementRequest;
+        } else {
+            throw new RRNotFoundException("Reimbursement request not found");
+        }
     }
 
     public void reassignReimbursementRequest(Integer id, Integer revisedManagerId) {
