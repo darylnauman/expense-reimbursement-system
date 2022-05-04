@@ -24,9 +24,8 @@ public class EmployeeController {
     public ResponseEntity createEmployee(@RequestBody Employee newEmployee) {
         logger.info("EmployeeController - POST mapping for createEmployee");
         try {
-          boolean success = employeeService.saveEmployee(newEmployee);
-
-          if (success) {
+          newEmployee = employeeService.saveEmployee(newEmployee);
+          if (newEmployee != null) {
               return ResponseEntity.ok("New employee created");
           } else {
               return ResponseEntity.internalServerError().body("Error creating new employee");

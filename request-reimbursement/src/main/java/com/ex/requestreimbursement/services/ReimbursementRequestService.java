@@ -18,12 +18,12 @@ ReimbursementRequestService {
     @Autowired
     private ReimbursementRequestRepository reimbursementRequests;
 
-    public boolean saveReimbursementRequest(ReimbursementRequest newReimbursementRequest) {
+    public ReimbursementRequest saveReimbursementRequest(ReimbursementRequest newReimbursementRequest) {
         newReimbursementRequest.setStatus("managerReview");
         LocalDate date = LocalDate.now();
         newReimbursementRequest.setDate(String.valueOf(date));
-        reimbursementRequests.save(newReimbursementRequest);
-        return true;
+        newReimbursementRequest = reimbursementRequests.save(newReimbursementRequest);
+        return newReimbursementRequest;
     }
 
     public List<ReimbursementRequest> findAllReimbursementRequests() {

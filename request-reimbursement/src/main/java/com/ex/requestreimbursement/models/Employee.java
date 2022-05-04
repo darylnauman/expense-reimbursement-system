@@ -12,6 +12,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Employee {
 
     @Id
@@ -29,5 +30,10 @@ public class Employee {
     private String password;
     private String department;
     private String title;
-    private int manager_id;
+
+    @Column(name="employee_level")
+    private int employeeLevel;
+
+    @Column(name="manager_id")
+    private int managerId;
 }

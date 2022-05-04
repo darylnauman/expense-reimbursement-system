@@ -26,9 +26,9 @@ public class ReimbursementRequestController {
     public ResponseEntity createReimbursementRequest(@RequestBody ReimbursementRequest newReimbursementRequest) {
         logger.info("ReimbursementRequestController - POST mapping for create reimbursement request");
         try {
-            boolean success = reimbursementRequestService.saveReimbursementRequest(newReimbursementRequest);
+            newReimbursementRequest = reimbursementRequestService.saveReimbursementRequest(newReimbursementRequest);
 
-            if (success) {
+            if (newReimbursementRequest != null) {
                 return ResponseEntity.ok("Reimbursement request created");
             } else {
                 return ResponseEntity.internalServerError().body("Error saving reimbursement request");
