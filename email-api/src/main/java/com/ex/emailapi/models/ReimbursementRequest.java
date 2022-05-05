@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-// import javax.persistence.Column;
+/**
+ * Model to handle incoming object from reimbursement request app
+ */
 
 @Getter
 @Setter
