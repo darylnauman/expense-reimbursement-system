@@ -2,9 +2,7 @@ package com.ex.emailapi.controllers;
 
 import com.ex.emailapi.models.ReimbursementRequest;
 import com.ex.emailapi.services.EmailSenderService;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +37,7 @@ public class EmailController {
     @GetMapping("/employees")
     public List<Object> getEmployees() {
 
-        String url = "http://localhost:7000/api/employees";
+        String url = "http://web1:7000/api/employees";
         Object[] objects = restTemplate.getForObject(url, Object[].class);
         return Arrays.asList(objects);
     }
@@ -47,7 +45,7 @@ public class EmailController {
     @GetMapping("/reimbursementrequest/{id}")
     public ReimbursementRequest getReimbursementRequestById(@PathVariable Integer id) {
 
-        String url = "http://localhost:7000/api/reimbursementrequests/" + id ;
+        String url = "http://web1:7000/api/reimbursementrequests/" + id ;
         System.out.println("string url: " + url);
 
         ReimbursementRequest rr = restTemplate.getForObject(url, ReimbursementRequest.class);
