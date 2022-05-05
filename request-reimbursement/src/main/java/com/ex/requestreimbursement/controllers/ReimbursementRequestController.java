@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/reimbursementrequsts")
+@RequestMapping("/api/reimbursementrequests")
 public class ReimbursementRequestController {
 
     Logger logger = LoggerFactory.getLogger(ReimbursementRequestController.class);

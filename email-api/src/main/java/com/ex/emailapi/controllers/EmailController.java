@@ -1,8 +1,12 @@
 package com.ex.emailapi.controllers;
 
+import com.ex.emailapi.models.ReimbursementRequest;
 import com.ex.emailapi.services.EmailSenderService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -21,10 +25,12 @@ public class EmailController {
     private RestTemplate restTemplate;
 
     @GetMapping("/sendemail")
-    public String sendEmail() {
+    public String sendEmail(String item, String date, Float amount) {
+
+        String body = "Hello, This is a message from Spring Email App regarding your reimbursement request submitted on " + date + ". Your purchase of " + item + " for $" + amount + " has been approved.";
 
         emailSenderService.sendSimpleEmail("darylnauman@outlook.com",
-                "Hello Daryl, This is a message from Spring Email App. You reimbursement request is approved.",
+                body,
                 "Reimbursement Approved from Spring Email App");
 
         return "Email sent successfully";
@@ -36,5 +42,22 @@ public class EmailController {
         String url = "http://localhost:7000/api/employees";
         Object[] objects = restTemplate.getForObject(url, Object[].class);
         return Arrays.asList(objects);
+    }
+
+    @GetMapping("/reimbursementrequest/{id}")
+    public ReimbursementRequest getReimbursementRequestById(@PathVariable Integer id) {
+
+        String url = "http://localhost:7000/api/reimbursementrequests/" + id ;
+        System.out.println("string url: " + url);
+
+        ReimbursementRequest rr = restTemplate.getForObject(url, ReimbursementRequest.class);
+
+        if (rr.getStatus().equals("approved")) {
+            sendEmail(rr.getItem(), rr.getDate(), rr.getAmount());
+        } else {
+            System.out.println("Reimbursement has not been approved yet");
+        }
+
+        return rr;
     }
 }
