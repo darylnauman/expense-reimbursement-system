@@ -1,8 +1,14 @@
 package com.ex.requestreimbursement.models;
 
 import lombok.*;
-
 import javax.persistence.*;
+
+/**
+ * Model for a reimbursement request that is stored in the database
+ * date is automatically created based on when the reimbursement is submitted
+ * amount refers to the cost of the item to be reimbursed
+ * managerId is the employeeId of the individual's manager
+ */
 
 @Entity
 @Table(name="reimbursementrequest")

@@ -11,18 +11,25 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service layer related to reimbursement requests
+ */
+
 @Service
-public class
-ReimbursementRequestService {
+public class ReimbursementRequestService {
 
     @Autowired
     private ReimbursementRequestRepository reimbursementRequests;
 
     public ReimbursementRequest saveReimbursementRequest(ReimbursementRequest newReimbursementRequest) {
         newReimbursementRequest.setStatus("managerReview");
+
+        // Set date field to date reimbursement is submitted
         LocalDate date = LocalDate.now();
         newReimbursementRequest.setDate(String.valueOf(date));
+
         newReimbursementRequest = reimbursementRequests.save(newReimbursementRequest);
+
         return newReimbursementRequest;
     }
 
@@ -50,6 +57,12 @@ ReimbursementRequestService {
         return true;
     }
 
+    /**
+     * Method to update the status of a reimbursement request by the manager
+     * @param id - of the reimbursement request
+     * @param action - managerReview, approved, denied
+     *
+     */
     public boolean updateStatus(Integer id, Action action) {
         reimbursementRequests.updateStatus(id, action.getType());
         return true;

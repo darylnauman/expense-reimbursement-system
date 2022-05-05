@@ -6,13 +6,15 @@ import com.ex.requestreimbursement.services.ReimbursementRequestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * REST controller to handles requests related to reimbursement requests (e.g., create a reimbursement request,
+ * reassign a request, get all requests, get all requests by employee, approve/deny a request).
+ */
 @RestController
 @RequestMapping("/api/reimbursementrequests")
 public class ReimbursementRequestController {
@@ -81,7 +83,9 @@ public class ReimbursementRequestController {
 
     @GetMapping("{id}")
     public ResponseEntity getReimbursementRequestById(@PathVariable Integer id) {
+
         logger.info("ReimbursementRequestController - GET mapping for getReimbursementRequestById");
+
         try {
             Optional<ReimbursementRequest> reimbursementRequest = reimbursementRequestService.findById(id);
 
@@ -97,9 +101,16 @@ public class ReimbursementRequestController {
         }
     }
 
+    /**
+     * Method to reassign a request to another manager
+     * @param id - the id of the reimbursement request to be reassigned
+     * @param revisedManagerId - the manager the requests is going to be reassigned to
+     */
     @PutMapping("{id}/{revisedManagerId}")
     public ResponseEntity reassignReimbursementRequest(@PathVariable Integer id, @PathVariable Integer revisedManagerId) {
+
         logger.info("ReimbursementRequestController - PUT mapping for reassignReimbursementRequest");
+
         try {
             reimbursementRequestService.reassignReimbursementRequest(id, revisedManagerId);
             return ResponseEntity.ok().body("Success - reassigned to " + revisedManagerId);
@@ -110,9 +121,16 @@ public class ReimbursementRequestController {
         }
     }
 
+    /**
+     * Method to update the status of a request (e.g., managerReview, approved, denied)
+     * @param id - the id of the reimbursement request to be reassigned
+     * @param action - e.g., managerReview (default), approved, denied
+     */
     @PutMapping("{id}/action")
     public ResponseEntity updateStatusReimbursementRequest(@PathVariable Integer id, @RequestBody Action action) {
+
         logger.info("ReimbursementRequestController - PUT mapping for updateStatusReimbursementRequest");
+
         try {
             reimbursementRequestService.updateStatus(id, action);
             return ResponseEntity.ok().body("Success - updated status to " + action.getType());
@@ -125,7 +143,9 @@ public class ReimbursementRequestController {
 
     @DeleteMapping("{id}")
     public ResponseEntity deleteReimbursementRequest(@PathVariable Integer id) {
+
         logger.info("ReimbursementRequestController - DELETE mapping for deleteReimbursementRequest");
+
         try {
             boolean success = reimbursementRequestService.deleteReimbursementRequest(id);
 

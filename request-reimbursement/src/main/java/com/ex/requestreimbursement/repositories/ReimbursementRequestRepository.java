@@ -1,16 +1,17 @@
 package com.ex.requestreimbursement.repositories;
 
-import com.ex.requestreimbursement.models.Action;
 import com.ex.requestreimbursement.models.ReimbursementRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import javax.transaction.Transactional;
 import java.util.List;
+
+/**
+ * Repository for reimbursement request data
+ */
 
 @Qualifier("reimbursementrequests")
 @Repository

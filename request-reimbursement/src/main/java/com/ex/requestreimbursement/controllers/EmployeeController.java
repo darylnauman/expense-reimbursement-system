@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * REST controller to handles requests related to employees (e.g., create employee, get all employees)
+ */
+
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {

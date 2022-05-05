@@ -6,6 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repository for employee data
+ */
+
 @Qualifier("employees")
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
