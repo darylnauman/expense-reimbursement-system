@@ -57,7 +57,6 @@ public class ReimbursementRequest {
     }
 
     public ReimbursementRequest(String item, float amount, int employeeId, int managerId) {
-//        this.id = id;
         this.item = item;
         this.amount = amount;
         this.date = "";

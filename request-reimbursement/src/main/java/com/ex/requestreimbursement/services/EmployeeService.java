@@ -38,8 +38,17 @@ public class EmployeeService {
         }
     }
 
-    public boolean deleteEmployee(Integer id) {
-        employees.deleteById(id);
-        return true;
+    public boolean deleteEmployee(Integer id) throws EmployeeNotFoundException {
+
+        if (employees.existsById(id)) {
+            employees.deleteById(id);
+            if (!employees.existsById(id)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            throw new EmployeeNotFoundException("No employee with this id found to delete");
+        }
     }
 }
